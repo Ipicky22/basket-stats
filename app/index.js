@@ -1,12 +1,21 @@
-import { useEffect } from "react";
-import { Button, View, Text } from "react-native";
+import { useEffect, useState } from "react";
+import {
+	Button,
+	View,
+	Text,
+	Modal,
+	StyleSheet,
+	TextInput,
+	ScrollView,
+} from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { Stack } from "expo-router";
-import { useReset, globalStore } from "../store/globalStore";
+import { globalStore } from "../store/globalStore";
+import uuid from "react-native-uuid";
 var moment = require("moment");
 
 const MatchsList = () => {
 	const { matchs } = globalStore();
-	console.log(matchs);
 	return matchs.map((match) => (
 		<View
 			key={match.id}
@@ -27,25 +36,149 @@ const MatchsList = () => {
 };
 
 const Home = () => {
-	const { matchs, addMatch } = globalStore();
+	const { addMatch } = globalStore();
+	const [modalVisible, setModalVisible] = useState(false);
+
+	const [nameMatch, setNameMatch] = useState("");
+
+	const [selectedType, setSelectedType] = useState("");
+	const [pickerTypeFocused, setPickerTypeFocused] = useState(false);
+
+	const [selectedPlace, setSelectedPlace] = useState("");
+	const [pickerPlaceFocused, setPickerPlaceFocused] = useState(false);
 
 	useEffect(() => {
 		addMatch({
 			id: "1",
 			name: "match 1",
 			type: "amical",
-			place: "competitif",
+			place: "DOM",
 			date: 1679227032,
 		});
 	}, []);
 
+	const createMatch = () => {
+		addMatch({
+			id: uuid.v4(),
+			name: nameMatch,
+			type: selectedType,
+			place: selectedPlace,
+			date: moment().unix(),
+		});
+		setNameMatch("");
+		setSelectedType("");
+		setSelectedPlace("");
+		setModalVisible(false);
+	};
+
 	return (
-		<View style={{ flex: 1, padding: 12 }}>
-			<Stack.Screen options={{ title: "Matchs" }} />
-			<MatchsList />
-			<Button title='Ajouter un match' />
-		</View>
+		<ScrollView style={{ flex: 1 }}>
+			<View style={{ padding: 12 }}>
+				<Stack.Screen options={{ title: "Matchs" }} />
+				<MatchsList />
+				<Button
+					title='Ajouter un match'
+					onPress={() => setModalVisible(true)}
+				/>
+				<Modal
+					animationType='none'
+					transparent={true}
+					visible={modalVisible}>
+					<View style={styles.centeredView}>
+						<View style={styles.modalView}>
+							<Text style={styles.modalText}>
+								Ajouter un match
+							</Text>
+							<TextInput
+								style={styles.input}
+								onChangeText={setNameMatch}
+								value={nameMatch}
+								placeholder='Nom'
+							/>
+							<Picker
+								onFocus={() => setPickerTypeFocused(true)}
+								onBlur={() => setPickerTypeFocused(false)}
+								selectedValue={selectedType}
+								onValueChange={(itemValue) =>
+									setSelectedType(itemValue)
+								}>
+								<Picker.Item
+									label='Type'
+									value=''
+									enabled={!pickerTypeFocused}
+								/>
+								<Picker.Item
+									label='Competitif'
+									value='competitif'
+								/>
+								<Picker.Item label='Amical' value='amical' />
+							</Picker>
+							<Picker
+								onFocus={() => setPickerPlaceFocused(true)}
+								onBlur={() => setPickerPlaceFocused(false)}
+								selectedValue={selectedPlace}
+								onValueChange={(itemValue) =>
+									setSelectedPlace(itemValue)
+								}>
+								<Picker.Item
+									label='Lieu'
+									value=''
+									enabled={!pickerPlaceFocused}
+								/>
+								<Picker.Item label='DOM' value='DOM' />
+								<Picker.Item label='EXT' value='EXT' />
+							</Picker>
+							<View style={styles.fixToText}>
+								<Button
+									title='Annuler'
+									onPress={() => setModalVisible(false)}
+								/>
+								<Button title='Valider' onPress={createMatch} />
+							</View>
+						</View>
+					</View>
+				</Modal>
+			</View>
+		</ScrollView>
 	);
 };
+
+const styles = StyleSheet.create({
+	centeredView: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: 22,
+	},
+	modalView: {
+		width: "80%",
+		backgroundColor: "white",
+		borderRadius: 20,
+		padding: 35,
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5,
+	},
+	input: {
+		height: 40,
+		margin: 12,
+		borderWidth: 1,
+		padding: 10,
+	},
+	modalText: {
+		marginBottom: 15,
+		textAlign: "center",
+	},
+	fixToText: {
+		flexDirection: "row",
+		justifyContent: "space-around",
+		marginTop: 12,
+	},
+});
 
 export default Home;
