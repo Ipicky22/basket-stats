@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
 	Button,
 	View,
@@ -46,16 +46,6 @@ const Home = () => {
 
 	const [selectedPlace, setSelectedPlace] = useState("");
 	const [pickerPlaceFocused, setPickerPlaceFocused] = useState(false);
-
-	useEffect(() => {
-		addMatch({
-			id: "1",
-			name: "match 1",
-			type: "amical",
-			place: "DOM",
-			date: 1679227032,
-		});
-	}, []);
 
 	const createMatch = () => {
 		addMatch({
