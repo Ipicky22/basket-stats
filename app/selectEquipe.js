@@ -30,7 +30,7 @@ const SelectEquipe = () => {
 				}}>
 				<Stack.Screen
 					options={{
-						title: selectedTeam.length + "/12 joueurs selectionnés",
+						title: selectedTeam.length + "/12 Joueurs Selectionnés",
 					}}
 				/>
 				<View

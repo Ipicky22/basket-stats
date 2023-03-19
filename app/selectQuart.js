@@ -19,10 +19,10 @@ const back = () => {
 };
 
 const QuartsList = () => {
-	const { setCurrentQuart } = globalStore();
+	const { currentMatch, setCurrentQuart } = globalStore();
 	const router = useRouter();
 
-	return [...Array(4).keys()].map((quart, index) => (
+	return currentMatch.quart.map((quart, index) => (
 		<View
 			key={index}
 			style={{
@@ -38,10 +38,10 @@ const QuartsList = () => {
 			}}>
 			<Pressable
 				onPress={() => {
-					setCurrentQuart(index);
+					setCurrentQuart(quart);
 					router.push("stats");
 				}}>
-				<Text>Quart {index + 1}</Text>
+				<Text>{quart.name}</Text>
 			</Pressable>
 		</View>
 	));
@@ -56,7 +56,7 @@ const SelectQuart = () => {
 				}}>
 				<Stack.Screen
 					options={{
-						title: "Selection quart temps",
+						title: "Selection Quart Temps",
 						headerLeft: back,
 					}}
 				/>

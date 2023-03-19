@@ -13,7 +13,7 @@ const Stats = () => {
 				}}>
 				<Stack.Screen
 					options={{
-						title: "Statistiques Quart " + (currentQuart + 1),
+						title: currentQuart.name,
 					}}
 				/>
 				<Text>Stats</Text>

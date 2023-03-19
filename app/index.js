@@ -70,7 +70,24 @@ const Home = () => {
 			place: selectedPlace,
 			date: moment().unix(),
 			team: [],
-			quart: [{}, {}, {}, {}],
+			quart: [
+				{
+					id: uuid.v4(),
+					name: "Premier Quart Temps",
+				},
+				{
+					id: uuid.v4(),
+					name: "Deuxieme Quart Temps",
+				},
+				{
+					id: uuid.v4(),
+					name: "Troisieme Quart Temps",
+				},
+				{
+					id: uuid.v4(),
+					name: "Quatrieme Quart Temps",
+				},
+			],
 		});
 		setNameMatch("");
 		setSelectedType("");

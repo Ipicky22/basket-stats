@@ -9,7 +9,24 @@ export const globalStore = create((set, get) => ({
 			place: "EXT",
 			date: 1679227032,
 			team: ["1", "2", "3", "4", "5"],
-			quart: [{}, {}, {}, {}],
+			quart: [
+				{
+					id: "1",
+					name: "Premier Quart Temps",
+				},
+				{
+					id: "2",
+					name: "Deuxieme Quart Temps",
+				},
+				{
+					id: "3",
+					name: "Troisieme Quart Temps",
+				},
+				{
+					id: "4",
+					name: "Quatrieme Quart Temps",
+				},
+			],
 		},
 	],
 	currentMatch: {},
