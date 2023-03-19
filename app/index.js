@@ -7,15 +7,18 @@ import {
 	StyleSheet,
 	TextInput,
 	ScrollView,
+	Pressable,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { globalStore } from "../store/globalStore";
 import uuid from "react-native-uuid";
 var moment = require("moment");
 
 const MatchsList = () => {
 	const { matchs } = globalStore();
+	const router = useRouter();
+
 	return matchs.map((match) => (
 		<View
 			key={match.id}
@@ -27,10 +30,17 @@ const MatchsList = () => {
 				padding: 4,
 				marginBottom: 4,
 			}}>
-			<Text>{match.name}</Text>
-			<Text>{match.type}</Text>
-			<Text>{match.place}</Text>
-			<Text>{moment.unix(match.date).format("MM/DD/YYYY hh:mm:ss")}</Text>
+			<Pressable
+				onPress={() => {
+					router.push("/equipe");
+				}}>
+				<Text>{match.name}</Text>
+				<Text>{match.type}</Text>
+				<Text>{match.place}</Text>
+				<Text>
+					{moment.unix(match.date).format("MM/DD/YYYY hh:mm:ss")}
+				</Text>
+			</Pressable>
 		</View>
 	));
 };
