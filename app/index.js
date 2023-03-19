@@ -32,7 +32,7 @@ const MatchsList = () => {
 			}}>
 			<Pressable
 				onPress={() => {
-					setCurrentMatch(match.id);
+					setCurrentMatch(match);
 					if (match.team.length > 0) {
 						router.push("/selectQuart");
 					} else {
@@ -70,6 +70,7 @@ const Home = () => {
 			place: selectedPlace,
 			date: moment().unix(),
 			team: [],
+			quart: [{}, {}, {}, {}],
 		});
 		setNameMatch("");
 		setSelectedType("");

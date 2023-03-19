@@ -72,7 +72,7 @@ const SelectEquipe = () => {
 					title='Valider'
 					disabled={selectedTeam.length < 5 ? true : false}
 					onPress={() => {
-						setEquipe(currentMatch, selectedTeam);
+						setEquipe(currentMatch.id, selectedTeam);
 						router.push("/selectQuart");
 					}}
 				/>

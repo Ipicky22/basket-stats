@@ -8,12 +8,14 @@ export const globalStore = create((set, get) => ({
 			type: "amical",
 			place: "EXT",
 			date: 1679227032,
-			team: [],
+			team: ["1", "2", "3", "4", "5"],
+			quart: [{}, {}, {}, {}],
 		},
 	],
-	currentMatch: null,
-	setCurrentMatch: (matchId) => {
-		set({ currentMatch: matchId });
+	currentMatch: {},
+	currentQuart: null,
+	setCurrentMatch: (match) => {
+		set({ currentMatch: match });
 	},
 	addMatch: (item) => {
 		set({ matchs: [...get().matchs, item] });
@@ -28,6 +30,9 @@ export const globalStore = create((set, get) => ({
 				}
 			}),
 		});
+	},
+	setCurrentQuart: (index) => {
+		set({ currentQuart: index });
 	},
 }));
 
