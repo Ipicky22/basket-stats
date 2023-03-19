@@ -1,19 +1,19 @@
 import { create } from "zustand";
 
 const initialState = {
-	items: [],
+	matchs: [],
 };
 
-export const useStore = create((set, get) => {
+export const globalStore = create((set, get) => {
 	return Object.assign(initialState, {
-		items: [],
-		addItem(text) {
-			const items = get().items;
-			set({ items: [...items, { text, id: Math.random() }] });
+		matchs: [],
+		addMatch(item) {
+			const matchs = get().matchs;
+			set({ matchs: [...matchs, item] });
 		},
 	});
 });
 
 export function useReset() {
-	useStore.setState(initialState);
+	globalStore.setState(initialState);
 }
