@@ -11,8 +11,23 @@ export const globalStore = create((set, get) => ({
 			team: [],
 		},
 	],
+	currentMatch: null,
+	setCurrentMatch: (matchId) => {
+		set({ currentMatch: matchId });
+	},
 	addMatch: (item) => {
 		set({ matchs: [...get().matchs, item] });
+	},
+	setEquipe: (matchId, selectedTeam) => {
+		set({
+			matchs: get().matchs.map((match) => {
+				if (match.id === matchId) {
+					return { ...match, team: selectedTeam };
+				} else {
+					return match;
+				}
+			}),
+		});
 	},
 }));
 

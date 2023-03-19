@@ -4,5 +4,20 @@
 	"type": "amical",
 	"place": "EXT",
 	"date": 1679227032,
-	"team": []
+	"team": [],
+	"quart": [
+		{
+			"id": ""
+		},
+		{
+			"id": ""
+		},
+		{
+			"id": ""
+		},
+		{
+			"id": ""
+		}
+	],
+	"prolongation": []
 }

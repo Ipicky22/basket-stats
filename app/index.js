@@ -16,7 +16,7 @@ import uuid from "react-native-uuid";
 var moment = require("moment");
 
 const MatchsList = () => {
-	const { matchs } = globalStore();
+	const { matchs, setCurrentMatch } = globalStore();
 	const router = useRouter();
 
 	return matchs.map((match) => (
@@ -32,7 +32,12 @@ const MatchsList = () => {
 			}}>
 			<Pressable
 				onPress={() => {
-					router.push("/equipe");
+					setCurrentMatch(match.id);
+					if (match.team.length > 0) {
+						router.push("/selectQuart");
+					} else {
+						router.push("/selectEquipe");
+					}
 				}}>
 				<Text>{match.name}</Text>
 				<Text>{match.type}</Text>
@@ -64,6 +69,7 @@ const Home = () => {
 			type: selectedType,
 			place: selectedPlace,
 			date: moment().unix(),
+			team: [],
 		});
 		setNameMatch("");
 		setSelectedType("");
