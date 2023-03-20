@@ -22,6 +22,7 @@ const SelectEquipe = () => {
 		}
 	};
 
+	console.log(selectedTeam);
 	return (
 		<ScrollView style={{ flex: 1 }}>
 			<View
@@ -44,7 +45,9 @@ const SelectEquipe = () => {
 						return (
 							<Pressable
 								key={index}
-								onPress={() => selectedPlayer(index)}>
+								onPress={() =>
+									selectedPlayer(index.toString())
+								}>
 								<View
 									style={{
 										borderColor: "black",
@@ -57,7 +60,7 @@ const SelectEquipe = () => {
 										alignItems: "center",
 										margin: 4,
 										backgroundColor: selectedTeam.includes(
-											index
+											index.toString()
 										)
 											? "green"
 											: null,

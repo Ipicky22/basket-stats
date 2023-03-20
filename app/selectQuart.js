@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { View, Text, ScrollView, Pressable, Button } from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { globalStore } from "../store/globalStore";
 import { Ionicons } from "@expo/vector-icons";

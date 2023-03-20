@@ -7,16 +7,20 @@
 	"team": [],
 	"quart": [
 		{
-			"id": ""
+			"id": "1",
+			"name": "Premier Quart Temps"
 		},
 		{
-			"id": ""
+			"id": "2",
+			"name": "Deuxieme Quart Temps"
 		},
 		{
-			"id": ""
+			"id": "3",
+			"name": "Troisieme Quart Temps"
 		},
 		{
-			"id": ""
+			"id": "4",
+			"name": "Quatrieme Quart Temps"
 		}
 	]
 }
