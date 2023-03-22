@@ -2,6 +2,8 @@ import { View, Text, ScrollView, Pressable } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { globalStore } from "../store/globalStore";
 import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { StorageAccessFramework as SAF } from "expo-file-system";
 
 const back = () => {
 	const router = useRouter();
@@ -11,6 +13,43 @@ const back = () => {
 				name='arrow-back'
 				size={24}
 				style={{ marginRight: 32 }}
+				color='black'
+			/>
+		</Pressable>
+	);
+};
+
+const right = () => {
+	const { currentMatch } = globalStore();
+
+	const download = async () => {
+		const downloadDir = SAF.getUriForDirectoryInRoot("Download");
+		const permission = await SAF.requestDirectoryPermissionsAsync(
+			downloadDir
+		);
+
+		if (!permission.granted) {
+			return false;
+		}
+
+		const destinationUri = await SAF.createFileAsync(
+			permission.directoryUri,
+			"test.json",
+			"json"
+		);
+
+		await SAF.writeAsStringAsync(
+			destinationUri,
+			JSON.stringify(currentMatch)
+		);
+	};
+
+	return (
+		<Pressable onPress={() => download()}>
+			<AntDesign
+				name='download'
+				size={24}
+				style={{ marginRight: 16 }}
 				color='black'
 			/>
 		</Pressable>
@@ -57,6 +96,7 @@ const SelectQuart = () => {
 					options={{
 						title: "Selection Quart Temps",
 						headerLeft: back,
+						headerRight: right,
 					}}
 				/>
 				<QuartsList />
