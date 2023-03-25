@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { View, Text, Pressable, FlatList, Button } from "react-native";
-import { Stack, useRouter } from "expo-router";
+import { View, Text, Pressable, Button } from "react-native";
+import { Stack } from "expo-router";
 import { globalStore } from "../store/globalStore";
 import Stopwatch from "./components/stopwatch";
 
 const Stats = () => {
 	const { currentMatch, currentQuart } = globalStore();
 	const [startTimer, setStartTimer] = useState(false);
-	const [selectedTeam, setSelectedTeam] = useState([]);
-	const [currentTime, setCurrentTime] = useState();
+	const [currentStartTime, setCurrentStartTime] = useState(0);
+	const [currentEndTime, setCurrentEndTime] = useState(0);
 
+	const [selectedTeam, setSelectedTeam] = useState([]);
 	const [statsArray, setStatsArray] = useState([
 		"+1",
 		"+2",
@@ -35,15 +36,34 @@ const Stats = () => {
 				"-2": 0,
 				"-3": 0,
 				PD: 0,
+				time: 0,
 			};
 			tmpArray.push(objPlayer);
 		});
 		setStatsPlayers(...statsPlayers, tmpArray);
 	}, []);
 
-	console.log("statsPlayers => ", statsPlayers);
-	console.log("selectedStat => ", selectedStat);
-	console.log("selectedStatPlayer => ", selectedStatPlayer);
+	useEffect(() => {
+		if (currentEndTime !== 0) {
+			let diffTime = currentEndTime - currentStartTime;
+			let fixStatsPlayers = statsPlayers;
+			setStatsPlayers(
+				fixStatsPlayers.map((player) => {
+					console.log("id => ", player.id);
+					if (selectedTeam.includes(player.id)) {
+						prevValue = player["time"];
+						return {
+							...player,
+							time: prevValue + diffTime,
+						};
+					} else {
+						return player;
+					}
+				})
+			);
+			setCurrentStartTime(currentEndTime);
+		}
+	}, [currentEndTime]);
 
 	const addStat = () => {
 		let fixStatsPlayers = statsPlayers;
@@ -51,7 +71,6 @@ const Stats = () => {
 			fixStatsPlayers.map((player) => {
 				if (selectedStatPlayer == player.id) {
 					prevValue = player[selectedStat];
-					console.log("prevValue => ", prevValue);
 					return {
 						...player,
 						[selectedStat]: prevValue + 1,
@@ -92,7 +111,14 @@ const Stats = () => {
 						title: currentQuart.name,
 					}}
 				/>
-				<View>
+				<Button
+					title={"Finir " + currentQuart.name}
+					onPress={() => {
+						setSelectedStat("");
+						setSelectedStatPlayer("");
+					}}
+				/>
+				<View style={{ marginTop: 16 }}>
 					<Text style={{ fontSize: 24 }}>Temps de jeu</Text>
 					<View
 						style={{
@@ -128,7 +154,11 @@ const Stats = () => {
 							);
 						})}
 					</View>
-					<Stopwatch />
+					<Stopwatch
+						setStartTimer={setStartTimer}
+						setCurrentStartTime={setCurrentStartTime}
+						setCurrentEndTime={setCurrentEndTime}
+					/>
 				</View>
 
 				<Text style={{ fontSize: 24, marginTop: 16 }}>
