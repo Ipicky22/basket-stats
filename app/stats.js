@@ -5,7 +5,7 @@ import { globalStore } from "../store/globalStore";
 import Stopwatch from "./components/stopwatch";
 
 const Stats = () => {
-	const { currentMatch, currentQuart } = globalStore();
+	const { currentMatch, currentQuart, updateCurrentMatch } = globalStore();
 	const [startTimer, setStartTimer] = useState(false);
 	const [currentStartTime, setCurrentStartTime] = useState(0);
 	const [currentEndTime, setCurrentEndTime] = useState(0);
@@ -49,7 +49,6 @@ const Stats = () => {
 			let fixStatsPlayers = statsPlayers;
 			setStatsPlayers(
 				fixStatsPlayers.map((player) => {
-					console.log("id => ", player.id);
 					if (selectedTeam.includes(player.id)) {
 						prevValue = player["time"];
 						return {
@@ -100,6 +99,12 @@ const Stats = () => {
 		}
 	};
 
+	const endQuart = () => {
+		result = currentQuart;
+		result["players"] = statsPlayers;
+		updateCurrentMatch(result, currentMatch.quart);
+	};
+
 	return (
 		<View style={{ flex: 1 }}>
 			<View
@@ -113,10 +118,7 @@ const Stats = () => {
 				/>
 				<Button
 					title={"Finir " + currentQuart.name}
-					onPress={() => {
-						setSelectedStat("");
-						setSelectedStatPlayer("");
-					}}
+					onPress={endQuart}
 				/>
 				<View style={{ marginTop: 16 }}>
 					<Text style={{ fontSize: 24 }}>Temps de jeu</Text>

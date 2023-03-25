@@ -74,18 +74,22 @@ const Home = () => {
 				{
 					id: uuid.v4(),
 					name: "Premier Quart Temps",
+					players: [],
 				},
 				{
 					id: uuid.v4(),
 					name: "Deuxieme Quart Temps",
+					players: [],
 				},
 				{
 					id: uuid.v4(),
 					name: "Troisieme Quart Temps",
+					players: [],
 				},
 				{
 					id: uuid.v4(),
 					name: "Quatrieme Quart Temps",
+					players: [],
 				},
 			],
 		});

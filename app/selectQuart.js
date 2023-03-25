@@ -4,6 +4,7 @@ import { globalStore } from "../store/globalStore";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { StorageAccessFramework as SAF } from "expo-file-system";
+import uuid from "react-native-uuid";
 
 const back = () => {
 	const router = useRouter();
@@ -32,9 +33,10 @@ const right = () => {
 			return false;
 		}
 
+		let nameFile = uuid.v4() + ".json";
 		const destinationUri = await SAF.createFileAsync(
 			permission.directoryUri,
-			"test.json",
+			nameFile,
 			"json"
 		);
 

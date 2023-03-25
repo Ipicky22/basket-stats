@@ -2,32 +2,36 @@ import { create } from "zustand";
 
 export const globalStore = create((set, get) => ({
 	matchs: [
-		{
-			id: "1",
-			name: "INIT",
-			type: "amical",
-			place: "EXT",
-			date: 1679227032,
-			team: ["1", "2", "3", "4", "5", "6", "7", "8"],
-			quart: [
-				{
-					id: "1",
-					name: "Premier Quart Temps",
-				},
-				{
-					id: "2",
-					name: "Deuxieme Quart Temps",
-				},
-				{
-					id: "3",
-					name: "Troisieme Quart Temps",
-				},
-				{
-					id: "4",
-					name: "Quatrieme Quart Temps",
-				},
-			],
-		},
+		// {
+		// 	id: "1",
+		// 	name: "INIT",
+		// 	type: "amical",
+		// 	place: "EXT",
+		// 	date: 1679227032,
+		// 	team: ["1", "2", "3", "4", "5", "6", "7", "8"],
+		// 	quart: [
+		// 		{
+		// 			id: "1",
+		// 			name: "Premier Quart Temps",
+		// 			players: [],
+		// 		},
+		// 		{
+		// 			id: "2",
+		// 			name: "Deuxieme Quart Temps",
+		// 			players: [],
+		// 		},
+		// 		{
+		// 			id: "3",
+		// 			name: "Troisieme Quart Temps",
+		// 			players: [],
+		// 		},
+		// 		{
+		// 			id: "4",
+		// 			name: "Quatrieme Quart Temps",
+		// 			players: [],
+		// 		},
+		// 	],
+		// },
 	],
 	currentMatch: {},
 	currentQuart: null,
@@ -53,6 +57,20 @@ export const globalStore = create((set, get) => ({
 	},
 	setCurrentQuart: (index) => {
 		set({ currentQuart: index });
+	},
+	updateCurrentMatch: (quartData, fixQuart) => {
+		set((state) => ({
+			currentMatch: {
+				...state.currentMatch,
+				quart: fixQuart.map((item) => {
+					if (item.id === quartData.id) {
+						return quartData;
+					} else {
+						return item;
+					}
+				}),
+			},
+		}));
 	},
 }));
 
