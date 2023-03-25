@@ -22,7 +22,6 @@ const SelectEquipe = () => {
 		}
 	};
 
-	console.log(selectedTeam);
 	return (
 		<ScrollView style={{ flex: 1 }}>
 			<View
