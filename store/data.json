@@ -1,5 +1,5 @@
 {
-	"id": "1",
+	"uuid": "1",
 	"name": "match 1",
 	"type": "amical",
 	"place": "EXT",
@@ -7,19 +7,19 @@
 	"team": [],
 	"quart": [
 		{
-			"id": "1",
+			"uuid": "1",
 			"name": "Premier Quart Temps"
 		},
 		{
-			"id": "2",
+			"uuid": "2",
 			"name": "Deuxieme Quart Temps"
 		},
 		{
-			"id": "3",
+			"uuid": "3",
 			"name": "Troisieme Quart Temps"
 		},
 		{
-			"id": "4",
+			"uuid": "4",
 			"name": "Quatrieme Quart Temps"
 		}
 	]

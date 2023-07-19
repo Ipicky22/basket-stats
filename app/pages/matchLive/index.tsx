@@ -29,7 +29,7 @@ const MatchLiveScreen = () => {
 		let tmpArray = [];
 		currentMatch.team.map((player) => {
 			let objPlayer = {
-				id: player,
+				uuid: player,
 				"+1": 0,
 				"+2": 0,
 				"+3": 0,
@@ -50,7 +50,7 @@ const MatchLiveScreen = () => {
 			let fixStatsPlayers = statsPlayers;
 			setStatsPlayers(
 				fixStatsPlayers.map((player) => {
-					if (selectedTeam.includes(player.id)) {
+					if (selectedTeam.includes(player.uuid)) {
 						let prevValue = player["time"];
 						return {
 							...player,
@@ -69,7 +69,7 @@ const MatchLiveScreen = () => {
 		let fixStatsPlayers = statsPlayers;
 		setStatsPlayers(
 			fixStatsPlayers.map((player) => {
-				if (selectedStatPlayer == player.id) {
+				if (selectedStatPlayer == player.uuid) {
 					let prevValue = player[selectedStat];
 					return {
 						...player,
@@ -176,7 +176,9 @@ const MatchLiveScreen = () => {
 					}}>
 					{statsArray.map((item, index) => {
 						return (
-							<Pressable onPress={() => setSelectedStat(item)}>
+							<Pressable
+								onPress={() => setSelectedStat(item)}
+								key={index}>
 								<View
 									style={{
 										borderColor: "black",
