@@ -39,7 +39,7 @@ export const globalStore = create((set, get) => ({
 		set({ currentMatch: match });
 	},
 	addMatch: (item) => {
-		set({ matchs: [...get().matchs, item] });
+		// set({ matchs: [...get().matchs, item] });
 	},
 	setEquipe: (matchId, selectedTeam) => {
 		set((state) => ({
@@ -74,6 +74,6 @@ export const globalStore = create((set, get) => ({
 	},
 }));
 
-export function useReset() {
-	globalStore.setState(initialState);
-}
+// export function useReset() {
+// 	globalStore.setState(initialState);
+// }

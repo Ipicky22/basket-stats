@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { View, Text, Pressable, Button } from "react-native";
 import { Stack } from "expo-router";
-import { globalStore } from "../store/globalStore";
-import Stopwatch from "./components/stopwatch";
+import { globalStore } from "../../../store/globalStore";
+import Stopwatch from "../../components/stopwatch";
 
-const Stats = () => {
-	const { currentMatch, currentQuart, updateCurrentMatch } = globalStore();
+const MatchLiveScreen = () => {
+	const { currentMatch, currentQuart, updateCurrentMatch }: any =
+		globalStore();
 	const [startTimer, setStartTimer] = useState(false);
 	const [currentStartTime, setCurrentStartTime] = useState(0);
 	const [currentEndTime, setCurrentEndTime] = useState(0);
@@ -40,7 +41,7 @@ const Stats = () => {
 			};
 			tmpArray.push(objPlayer);
 		});
-		setStatsPlayers(...statsPlayers, tmpArray);
+		// setStatsPlayers(...statsPlayers, tmpArray);
 	}, []);
 
 	useEffect(() => {
@@ -50,7 +51,7 @@ const Stats = () => {
 			setStatsPlayers(
 				fixStatsPlayers.map((player) => {
 					if (selectedTeam.includes(player.id)) {
-						prevValue = player["time"];
+						let prevValue = player["time"];
 						return {
 							...player,
 							time: prevValue + diffTime,
@@ -69,7 +70,7 @@ const Stats = () => {
 		setStatsPlayers(
 			fixStatsPlayers.map((player) => {
 				if (selectedStatPlayer == player.id) {
-					prevValue = player[selectedStat];
+					let prevValue = player[selectedStat];
 					return {
 						...player,
 						[selectedStat]: prevValue + 1,
@@ -100,7 +101,7 @@ const Stats = () => {
 	};
 
 	const endQuart = () => {
-		result = currentQuart;
+		let result = currentQuart;
 		result["players"] = statsPlayers;
 		updateCurrentMatch(result, currentMatch.quart);
 	};
@@ -131,6 +132,7 @@ const Stats = () => {
 						{currentMatch.team.map((player) => {
 							return (
 								<Pressable
+									key={player}
 									onPress={() => selectedPlayer(player)}>
 									<View
 										style={{
@@ -263,4 +265,4 @@ const Stats = () => {
 	);
 };
 
-export default Stats;
+export default MatchLiveScreen;
