@@ -24,7 +24,7 @@ const MatchList = () => {
 					if (match.team.length > 0) {
 						router.push("/selectQuart");
 					} else {
-						router.push("/selectEquipe");
+						router.push("pages/selectPlayers");
 					}
 				}}>
 				<Text>{match.name}</Text>

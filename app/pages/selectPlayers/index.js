@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { View, Text, ScrollView, Pressable, Button } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import { globalStore } from "../store/globalStore";
+import { globalStore } from "../../../store/globalStore";
 
-const SelectEquipe = () => {
+const SelectPlayersScreen = () => {
 	const router = useRouter();
 	const { currentMatch, setEquipe } = globalStore();
 	const [selectedTeam, setSelectedTeam] = useState([]);
@@ -83,4 +83,4 @@ const SelectEquipe = () => {
 	);
 };
 
-export default SelectEquipe;
+export default SelectPlayersScreen;
