@@ -3,6 +3,7 @@ import { View, Text, Pressable, Button } from "react-native";
 import { Stack } from "expo-router";
 import { globalStore } from "../../../store/globalStore";
 import Stopwatch from "../../components/stopwatch";
+import { Player } from "../../../types/player";
 
 const MatchLiveScreen = () => {
 	const { currentMatch, currentQuart, updateCurrentMatch }: any =
@@ -23,12 +24,12 @@ const MatchLiveScreen = () => {
 	]);
 	const [selectedStat, setSelectedStat] = useState("");
 	const [selectedStatPlayer, setSelectedStatPlayer] = useState("");
-	const [statsPlayers, setStatsPlayers] = useState([]);
+	const [statsPlayers, setStatsPlayers] = useState<Player[]>([]);
 
 	useEffect(() => {
-		let tmpArray = [];
-		currentMatch.team.map((player) => {
-			let objPlayer = {
+		let tmpArray: Player[] = [];
+		currentMatch.team.map((player: string) => {
+			let objPlayer: Player = {
 				uuid: player,
 				"+1": 0,
 				"+2": 0,
@@ -41,7 +42,8 @@ const MatchLiveScreen = () => {
 			};
 			tmpArray.push(objPlayer);
 		});
-		// setStatsPlayers(...statsPlayers, tmpArray);
+		//@ts-ignore
+		setStatsPlayers(...statsPlayers, tmpArray);
 	}, []);
 
 	useEffect(() => {
@@ -132,7 +134,7 @@ const MatchLiveScreen = () => {
 						{currentMatch.team.map((player) => {
 							return (
 								<Pressable
-									key={player}
+									key={"player_" + player}
 									onPress={() => selectedPlayer(player)}>
 									<View
 										style={{
@@ -178,7 +180,7 @@ const MatchLiveScreen = () => {
 						return (
 							<Pressable
 								onPress={() => setSelectedStat(item)}
-								key={index}>
+								key={"stats_" + index}>
 								<View
 									style={{
 										borderColor: "black",
@@ -215,7 +217,8 @@ const MatchLiveScreen = () => {
 					{selectedTeam.map((item, index) => {
 						return (
 							<Pressable
-								onPress={() => setSelectedStatPlayer(item)}>
+								onPress={() => setSelectedStatPlayer(item)}
+								key={"team_" + index}>
 								<View
 									style={{
 										borderColor: "black",
