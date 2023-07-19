@@ -22,7 +22,7 @@ const MatchList = () => {
 				onPress={() => {
 					setCurrentMatch(match);
 					if (match.team.length > 0) {
-						router.push("/selectQuart");
+						router.push("pages/selectQuart");
 					} else {
 						router.push("pages/selectPlayers");
 					}
