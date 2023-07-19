@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 const HeaderLeft = () => {
 	const router = useRouter();
+
 	return (
 		<Pressable onPress={() => router.push("/")}>
 			<Ionicons

@@ -23,7 +23,7 @@ const QuartsList = () => {
 			<Pressable
 				onPress={() => {
 					setCurrentQuart(quart);
-					router.push("stats");
+					router.push("pages/matchLive");
 				}}>
 				<Text>{quart.name}</Text>
 			</Pressable>

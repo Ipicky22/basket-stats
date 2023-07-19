@@ -75,7 +75,7 @@ const SelectPlayersScreen = () => {
 					disabled={selectedTeam.length < 5 ? true : false}
 					onPress={() => {
 						setEquipe(currentMatch.id, selectedTeam);
-						router.push("/selectQuart");
+						router.push("pages/selectQuart");
 					}}
 				/>
 			</View>

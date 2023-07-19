@@ -31,7 +31,7 @@ const HeaderRight = () => {
 	};
 
 	return (
-		<Pressable onPress={() => download()}>
+		<Pressable onPress={download}>
 			<AntDesign
 				name='download'
 				size={24}
