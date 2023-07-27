@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, View, Text, Modal, StyleSheet, TextInput } from "react-native";
+import { Button, View, StyleSheet, TextInput } from "react-native";
 import { globalStore } from "../../../store/globalStore";
 import uuid from "react-native-uuid";
 import Dropdown from "react-native-input-select";
@@ -29,21 +29,25 @@ const AddMatch = () => {
 				{
 					uuid: uuid.v4() as string,
 					name: "Premier Quart Temps",
+					status: "preparation",
 					players: [],
 				},
 				{
 					uuid: uuid.v4() as string,
 					name: "Deuxieme Quart Temps",
+					status: "preparation",
 					players: [],
 				},
 				{
 					uuid: uuid.v4() as string,
 					name: "Troisieme Quart Temps",
+					status: "preparation",
 					players: [],
 				},
 				{
 					uuid: uuid.v4() as string,
 					name: "Quatrieme Quart Temps",
+					status: "preparation",
 					players: [],
 				},
 			],

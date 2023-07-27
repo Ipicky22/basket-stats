@@ -25,8 +25,6 @@ const MatchList = () => {
 				<View
 					key={match.uuid}
 					style={{
-						borderColor: "black",
-						borderStyle: "solid",
 						borderRadius: 3,
 						marginBottom: 4,
 						backgroundColor: "white",
