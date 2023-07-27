@@ -9,7 +9,7 @@ const MatchList = () => {
 
 	return matchs.map((match) => (
 		<View
-			key={match.id}
+			key={match.uuid}
 			style={{
 				borderColor: "black",
 				borderStyle: "solid",

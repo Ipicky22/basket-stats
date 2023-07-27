@@ -5,7 +5,7 @@ import { globalStore } from "../../../store/globalStore";
 
 const SelectPlayersScreen = () => {
 	const router = useRouter();
-	const { currentMatch, setEquipe } = globalStore();
+	const { currentMatch, setCurrentEquipe } = globalStore();
 	const [selectedTeam, setSelectedTeam] = useState([]);
 
 	const selectedPlayer = (number) => {
@@ -74,7 +74,7 @@ const SelectPlayersScreen = () => {
 					title='Valider'
 					disabled={selectedTeam.length < 5 ? true : false}
 					onPress={() => {
-						setEquipe(currentMatch.id, selectedTeam);
+						setCurrentEquipe(currentMatch.uuid, selectedTeam);
 						router.push("pages/selectQuart");
 					}}
 				/>

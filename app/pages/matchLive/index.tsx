@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { View, Text, Pressable, Button } from "react-native";
 import { Stack } from "expo-router";
-import { globalStore } from "../store/globalStore";
-import Stopwatch from "./components/stopwatch";
+import { globalStore } from "../../../store/globalStore";
+import Stopwatch from "../../components/stopwatch";
+import { Player } from "../../../types/player";
 
-const Stats = () => {
-	const { currentMatch, currentQuart, updateCurrentMatch } = globalStore();
+const MatchLiveScreen = () => {
+	const { currentMatch, currentQuart, updateCurrentMatch }: any =
+		globalStore();
 	const [startTimer, setStartTimer] = useState(false);
 	const [currentStartTime, setCurrentStartTime] = useState(0);
 	const [currentEndTime, setCurrentEndTime] = useState(0);
@@ -22,13 +24,13 @@ const Stats = () => {
 	]);
 	const [selectedStat, setSelectedStat] = useState("");
 	const [selectedStatPlayer, setSelectedStatPlayer] = useState("");
-	const [statsPlayers, setStatsPlayers] = useState([]);
+	const [statsPlayers, setStatsPlayers] = useState<Player[]>([]);
 
 	useEffect(() => {
-		let tmpArray = [];
-		currentMatch.team.map((player) => {
-			let objPlayer = {
-				id: player,
+		let tmpArray: Player[] = [];
+		currentMatch.team.map((player: string) => {
+			let objPlayer: Player = {
+				uuid: player,
 				"+1": 0,
 				"+2": 0,
 				"+3": 0,
@@ -40,6 +42,7 @@ const Stats = () => {
 			};
 			tmpArray.push(objPlayer);
 		});
+		//@ts-ignore
 		setStatsPlayers(...statsPlayers, tmpArray);
 	}, []);
 
@@ -49,8 +52,8 @@ const Stats = () => {
 			let fixStatsPlayers = statsPlayers;
 			setStatsPlayers(
 				fixStatsPlayers.map((player) => {
-					if (selectedTeam.includes(player.id)) {
-						prevValue = player["time"];
+					if (selectedTeam.includes(player.uuid)) {
+						let prevValue = player["time"];
 						return {
 							...player,
 							time: prevValue + diffTime,
@@ -68,8 +71,8 @@ const Stats = () => {
 		let fixStatsPlayers = statsPlayers;
 		setStatsPlayers(
 			fixStatsPlayers.map((player) => {
-				if (selectedStatPlayer == player.id) {
-					prevValue = player[selectedStat];
+				if (selectedStatPlayer == player.uuid) {
+					let prevValue = player[selectedStat];
 					return {
 						...player,
 						[selectedStat]: prevValue + 1,
@@ -100,7 +103,7 @@ const Stats = () => {
 	};
 
 	const endQuart = () => {
-		result = currentQuart;
+		let result = currentQuart;
 		result["players"] = statsPlayers;
 		updateCurrentMatch(result, currentMatch.quart);
 	};
@@ -131,6 +134,7 @@ const Stats = () => {
 						{currentMatch.team.map((player) => {
 							return (
 								<Pressable
+									key={"player_" + player}
 									onPress={() => selectedPlayer(player)}>
 									<View
 										style={{
@@ -174,7 +178,9 @@ const Stats = () => {
 					}}>
 					{statsArray.map((item, index) => {
 						return (
-							<Pressable onPress={() => setSelectedStat(item)}>
+							<Pressable
+								onPress={() => setSelectedStat(item)}
+								key={"stats_" + index}>
 								<View
 									style={{
 										borderColor: "black",
@@ -211,7 +217,8 @@ const Stats = () => {
 					{selectedTeam.map((item, index) => {
 						return (
 							<Pressable
-								onPress={() => setSelectedStatPlayer(item)}>
+								onPress={() => setSelectedStatPlayer(item)}
+								key={"team_" + index}>
 								<View
 									style={{
 										borderColor: "black",
@@ -263,4 +270,4 @@ const Stats = () => {
 	);
 };
 
-export default Stats;
+export default MatchLiveScreen;

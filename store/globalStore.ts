@@ -1,9 +1,12 @@
 import { create } from "zustand";
+import { Store } from "../types/store";
+import { Match } from "../types/match";
+import { Quart } from "../types/quart";
 
-export const globalStore = create((set, get) => ({
+export const globalStore = create<Store>((set, get) => ({
 	matchs: [
 		// {
-		// 	id: "1",
+		// 	uuid: "1",
 		// 	name: "INIT",
 		// 	type: "amical",
 		// 	place: "EXT",
@@ -11,40 +14,40 @@ export const globalStore = create((set, get) => ({
 		// 	team: ["1", "2", "3", "4", "5", "6", "7", "8"],
 		// 	quart: [
 		// 		{
-		// 			id: "1",
+		// 			uuid: "1",
 		// 			name: "Premier Quart Temps",
 		// 			players: [],
 		// 		},
 		// 		{
-		// 			id: "2",
+		// 			uuid: "2",
 		// 			name: "Deuxieme Quart Temps",
 		// 			players: [],
 		// 		},
 		// 		{
-		// 			id: "3",
+		// 			uuid: "3",
 		// 			name: "Troisieme Quart Temps",
 		// 			players: [],
 		// 		},
 		// 		{
-		// 			id: "4",
+		// 			uuid: "4",
 		// 			name: "Quatrieme Quart Temps",
 		// 			players: [],
 		// 		},
 		// 	],
 		// },
 	],
-	currentMatch: {},
+	currentMatch: null,
 	currentQuart: null,
-	setCurrentMatch: (match) => {
+	setCurrentMatch: (match: Match) => {
 		set({ currentMatch: match });
 	},
-	addMatch: (item) => {
-		set({ matchs: [...get().matchs, item] });
+	addMatch: (match: Match) => {
+		set({ matchs: [...get().matchs, match] });
 	},
-	setEquipe: (matchId, selectedTeam) => {
+	setCurrentEquipe: (matchId: string, selectedTeam: string[]) => {
 		set((state) => ({
-			matchs: state.matchs.map((match) => {
-				if (match.id === matchId) {
+			matchs: state.matchs.map((match: Match) => {
+				if (match.uuid === matchId) {
 					return { ...match, team: selectedTeam };
 				} else {
 					return match;
@@ -55,15 +58,15 @@ export const globalStore = create((set, get) => ({
 			currentMatch: { ...state.currentMatch, team: selectedTeam },
 		}));
 	},
-	setCurrentQuart: (index) => {
+	setCurrentQuart: (index: Quart) => {
 		set({ currentQuart: index });
 	},
-	updateCurrentMatch: (quartData, fixQuart) => {
+	updateCurrentMatch: (quartData: Quart, fixQuart: Quart[]) => {
 		set((state) => ({
 			currentMatch: {
 				...state.currentMatch,
 				quart: fixQuart.map((item) => {
-					if (item.id === quartData.id) {
+					if (item.uuid === quartData.uuid) {
 						return quartData;
 					} else {
 						return item;
@@ -74,6 +77,6 @@ export const globalStore = create((set, get) => ({
 	},
 }));
 
-export function useReset() {
-	globalStore.setState(initialState);
-}
+// export function useReset() {
+// 	globalStore.setState(initialState);
+// }

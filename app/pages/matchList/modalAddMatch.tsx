@@ -19,7 +19,7 @@ const ModalAddMatch = () => {
 
 	const createMatch = () => {
 		addMatch({
-			id: uuid.v4(),
+			uuid: uuid.v4() as string,
 			name: nameMatch,
 			type: selectedType,
 			place: selectedPlace,
@@ -27,22 +27,22 @@ const ModalAddMatch = () => {
 			team: [],
 			quart: [
 				{
-					id: uuid.v4(),
+					uuid: uuid.v4() as string,
 					name: "Premier Quart Temps",
 					players: [],
 				},
 				{
-					id: uuid.v4(),
+					uuid: uuid.v4() as string,
 					name: "Deuxieme Quart Temps",
 					players: [],
 				},
 				{
-					id: uuid.v4(),
+					uuid: uuid.v4() as string,
 					name: "Troisieme Quart Temps",
 					players: [],
 				},
 				{
-					id: uuid.v4(),
+					uuid: uuid.v4() as string,
 					name: "Quatrieme Quart Temps",
 					players: [],
 				},
