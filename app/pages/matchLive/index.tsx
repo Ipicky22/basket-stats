@@ -4,10 +4,11 @@ import { Stack } from "expo-router";
 import { globalStore } from "../../../store/globalStore";
 import Stopwatch from "../../components/stopwatch";
 import { Player } from "../../../types/player";
+import HeaderRight from "./headerRight";
+import magicNumber from "../../../utils/magicNumber";
 
 const MatchLiveScreen = () => {
-	const { currentMatch, currentQuart, updateCurrentMatch }: any =
-		globalStore();
+	const { currentMatch, currentQuart } = globalStore();
 	const [startTimer, setStartTimer] = useState(false);
 	const [currentStartTime, setCurrentStartTime] = useState(0);
 	const [currentEndTime, setCurrentEndTime] = useState(0);
@@ -102,11 +103,11 @@ const MatchLiveScreen = () => {
 		}
 	};
 
-	const endQuart = () => {
-		let result = currentQuart;
-		result["players"] = statsPlayers;
-		updateCurrentMatch(result, currentMatch.quart);
-	};
+	// const endQuart = () => {
+	// 	let result = currentQuart;
+	// 	result["players"] = statsPlayers;
+	// 	updateCurrentMatch(result, currentMatch.quart);
+	// };
 
 	return (
 		<View style={{ flex: 1 }}>
@@ -117,57 +118,130 @@ const MatchLiveScreen = () => {
 				<Stack.Screen
 					options={{
 						title: currentQuart.name,
+						headerRight: () => (
+							<HeaderRight statsPlayers={statsPlayers} />
+						),
 					}}
 				/>
-				<Button
+				{/* <Button
 					title={"Finir " + currentQuart.name}
 					onPress={endQuart}
-				/>
+				/> */}
 				<View style={{ marginTop: 16 }}>
-					<Text style={{ fontSize: 24 }}>Temps de jeu</Text>
+					<Text style={{ fontSize: 15 }}>Temps</Text>
+					<Stopwatch
+						setStartTimer={setStartTimer}
+						setCurrentStartTime={setCurrentStartTime}
+						setCurrentEndTime={setCurrentEndTime}
+					/>
+					<Text style={{ fontSize: 15 }}>Equipe</Text>
 					<View
 						style={{
 							flexDirection: "row",
 							flexWrap: "wrap",
 							marginTop: 8,
 						}}>
-						{currentMatch.team.map((player) => {
+						{currentMatch.team.map((player: string) => {
 							return (
 								<Pressable
 									key={"player_" + player}
 									onPress={() => selectedPlayer(player)}>
 									<View
 										style={{
-											borderColor: "black",
-											borderStyle: "solid",
-											borderWidth: 1,
-											borderRadius: 5,
+											borderRadius: 3,
 											margin: 4,
 											height: 55,
 											width: 55,
 											justifyContent: "center",
 											alignItems: "center",
-											backgroundColor:
-												selectedTeam.includes(player)
-													? "green"
-													: null,
+											shadowColor: "#000",
+											shadowOffset: {
+												width: 0,
+												height: 1,
+											},
+											shadowOpacity: 0.22,
+											shadowRadius: 2.22,
+											elevation: 3,
+											backgroundColor: "white",
 										}}>
 										<Text style={{ fontSize: 20 }}>
 											{player}
 										</Text>
+										{selectedTeam.includes(player) ? (
+											<Text
+												style={{
+													position: "absolute",
+													bottom: 0,
+													right: 2,
+													fontWeight: "500",
+													color: magicNumber.green,
+												}}>
+												IN
+											</Text>
+										) : (
+											<Text
+												style={{
+													position: "absolute",
+													bottom: 0,
+													right: 2,
+													fontWeight: "500",
+													color: magicNumber.red,
+												}}>
+												OUT
+											</Text>
+										)}
 									</View>
 								</Pressable>
 							);
 						})}
 					</View>
-					<Stopwatch
-						setStartTimer={setStartTimer}
-						setCurrentStartTime={setCurrentStartTime}
-						setCurrentEndTime={setCurrentEndTime}
-					/>
+					<Text style={{ fontSize: 15, marginTop: 16 }}>Joueurs</Text>
+					<View
+						style={{
+							marginTop: 16,
+							flexDirection: "row",
+							flexWrap: "wrap",
+						}}>
+						{selectedTeam.map((item, index) => {
+							return (
+								<Pressable
+									onPress={() =>
+										item === selectedStatPlayer
+											? setSelectedStatPlayer("")
+											: setSelectedStatPlayer(item)
+									}
+									key={"team_" + index}>
+									<View
+										style={{
+											borderRadius: 3,
+											width: 50,
+											height: 50,
+											justifyContent: "center",
+											alignItems: "center",
+											margin: 4,
+											shadowColor: "#000",
+											shadowOffset: {
+												width: 0,
+												height: 1,
+											},
+											shadowOpacity: 0.22,
+											shadowRadius: 2.22,
+											elevation: 3,
+											backgroundColor:
+												selectedStatPlayer == item
+													? magicNumber.green
+													: "white",
+										}}
+										key={item}>
+										<Text>{item}</Text>
+									</View>
+								</Pressable>
+							);
+						})}
+					</View>
 				</View>
 
-				<Text style={{ fontSize: 24, marginTop: 16 }}>
+				<Text style={{ fontSize: 15, marginTop: 16 }}>
 					Statistiques
 				</Text>
 				<View
@@ -179,23 +253,32 @@ const MatchLiveScreen = () => {
 					{statsArray.map((item, index) => {
 						return (
 							<Pressable
-								onPress={() => setSelectedStat(item)}
+								onPress={() =>
+									item === selectedStat
+										? setSelectedStat("")
+										: setSelectedStat(item)
+								}
 								key={"stats_" + index}>
 								<View
 									style={{
-										borderColor: "black",
-										borderStyle: "solid",
-										borderWidth: 1,
-										borderRadius: 5,
+										borderRadius: 3,
 										width: 50,
 										height: 50,
 										justifyContent: "center",
 										alignItems: "center",
 										margin: 4,
+										shadowColor: "#000",
+										shadowOffset: {
+											width: 0,
+											height: 1,
+										},
+										shadowOpacity: 0.22,
+										shadowRadius: 2.22,
+										elevation: 3,
 										backgroundColor:
 											selectedStat == item
-												? "green"
-												: null,
+												? magicNumber.green
+												: "white",
 									}}
 									key={item}>
 									<Text>{item}</Text>
@@ -205,56 +288,12 @@ const MatchLiveScreen = () => {
 					})}
 				</View>
 
-				<Text style={{ fontSize: 24, marginTop: 16 }}>
-					Assign to Player
-				</Text>
-				<View
-					style={{
-						marginTop: 16,
-						flexDirection: "row",
-						flexWrap: "wrap",
-					}}>
-					{selectedTeam.map((item, index) => {
-						return (
-							<Pressable
-								onPress={() => setSelectedStatPlayer(item)}
-								key={"team_" + index}>
-								<View
-									style={{
-										borderColor: "black",
-										borderStyle: "solid",
-										borderWidth: 1,
-										borderRadius: 5,
-										width: 50,
-										height: 50,
-										justifyContent: "center",
-										alignItems: "center",
-										margin: 4,
-										backgroundColor:
-											selectedStatPlayer == item
-												? "green"
-												: null,
-									}}
-									key={item}>
-									<Text>{item}</Text>
-								</View>
-							</Pressable>
-						);
-					})}
-				</View>
 				<View
 					style={{
 						marginTop: 16,
 						flexDirection: "row",
 						justifyContent: "space-around",
 					}}>
-					<Button
-						title='Reset Selected Stat'
-						onPress={() => {
-							setSelectedStat("");
-							setSelectedStatPlayer("");
-						}}
-					/>
 					<Button
 						title='Add Stat'
 						disabled={
