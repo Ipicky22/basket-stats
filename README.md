@@ -4,7 +4,9 @@
 
 [X] Add Typescript
 
-[ ] Redesign
+[X] Redesign
+
+[ ] Add more stats
 
 [ ] Add a team
 
