@@ -1,8 +1,8 @@
 # Basket Stats RoadMap
 
-[ ] Refacto the existing code
+[X] Refacto the existing code
 
-[ ] Add Typescript
+[X] Add Typescript
 
 [ ] Redesign
 
