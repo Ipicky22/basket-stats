@@ -21,6 +21,7 @@ const ModalAddMatch = () => {
 			name: nameMatch,
 			type: selectedType,
 			place: selectedPlace,
+			status: "preparation",
 			date: moment().unix(),
 			team: [],
 			quart: [
