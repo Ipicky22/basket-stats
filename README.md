@@ -1,15 +1,17 @@
-# Expo Router Example
+# Basket Stats RoadMap
 
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
+[X] Refacto the existing code
 
-## 🚀 How to use
+[X] Add Typescript
 
-```sh
-npx create-react-native-app -t with-router
-```
+[X] Redesign
 
-## 📝 Notes
+[ ] Add more stats
 
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
-- [Request for Comments](https://github.com/expo/router/discussions/1)
+[ ] Add a team
+
+[ ] Add name player
+
+[ ] Add role player
+
+[ ] Add hitmap for scoring

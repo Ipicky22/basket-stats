@@ -1,0 +1,26 @@
+{
+	"uuid": "1",
+	"name": "match 1",
+	"type": "amical",
+	"place": "EXT",
+	"date": 1679227032,
+	"team": [],
+	"quart": [
+		{
+			"uuid": "1",
+			"name": "Premier Quart Temps"
+		},
+		{
+			"uuid": "2",
+			"name": "Deuxieme Quart Temps"
+		},
+		{
+			"uuid": "3",
+			"name": "Troisieme Quart Temps"
+		},
+		{
+			"uuid": "4",
+			"name": "Quatrieme Quart Temps"
+		}
+	]
+}
