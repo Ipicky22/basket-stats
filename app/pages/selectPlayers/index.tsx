@@ -2,13 +2,14 @@ import { useState } from "react";
 import { View, Text, ScrollView, Pressable, Button } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { globalStore } from "../../../store/globalStore";
+import magicNumber from "../../../utils/magicNumber";
 
 const SelectPlayersScreen = () => {
 	const router = useRouter();
 	const { currentMatch, setCurrentEquipe } = globalStore();
 	const [selectedTeam, setSelectedTeam] = useState([]);
 
-	const selectedPlayer = (number) => {
+	const selectedPlayer = (number: string) => {
 		if (selectedTeam.length < 12) {
 			setSelectedTeam([...selectedTeam, number]);
 		}
@@ -23,16 +24,17 @@ const SelectPlayersScreen = () => {
 	};
 
 	return (
-		<ScrollView style={{ flex: 1 }}>
-			<View
-				style={{
-					padding: 12,
-				}}>
-				<Stack.Screen
-					options={{
-						title: selectedTeam.length + "/12 Joueurs Selectionnés",
-					}}
-				/>
+		<View
+			style={{
+				padding: 12,
+				flex: 1,
+			}}>
+			<Stack.Screen
+				options={{
+					title: selectedTeam.length + "/12 Joueurs Selectionnés",
+				}}
+			/>
+			<ScrollView style={{ marginBottom: 32 }}>
 				<View
 					style={{
 						flexDirection: "row",
@@ -51,8 +53,8 @@ const SelectPlayersScreen = () => {
 									style={{
 										borderColor: "black",
 										borderStyle: "solid",
-										borderWidth: 1,
-										borderRadius: 5,
+										borderRadius: 3,
+										marginBottom: 4,
 										width: 50,
 										height: 50,
 										justifyContent: "center",
@@ -61,8 +63,16 @@ const SelectPlayersScreen = () => {
 										backgroundColor: selectedTeam.includes(
 											index.toString()
 										)
-											? "green"
-											: null,
+											? magicNumber.green
+											: "white",
+										shadowColor: "#000",
+										shadowOffset: {
+											width: 0,
+											height: 1,
+										},
+										shadowOpacity: 0.22,
+										shadowRadius: 2.22,
+										elevation: 3,
 									}}>
 									<Text>{index}</Text>
 								</View>
@@ -70,16 +80,16 @@ const SelectPlayersScreen = () => {
 						);
 					})}
 				</View>
-				<Button
-					title='Valider'
-					disabled={selectedTeam.length < 5 ? true : false}
-					onPress={() => {
-						setCurrentEquipe(currentMatch.uuid, selectedTeam);
-						router.push("pages/selectQuart");
-					}}
-				/>
-			</View>
-		</ScrollView>
+			</ScrollView>
+			<Button
+				title='Valider'
+				disabled={selectedTeam.length < 5 ? true : false}
+				onPress={() => {
+					setCurrentEquipe(currentMatch.uuid, selectedTeam);
+					router.push("pages/selectQuart");
+				}}
+			/>
+		</View>
 	);
 };
 

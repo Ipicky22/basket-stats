@@ -6,6 +6,7 @@ export interface Match {
 	type: string;
 	place: string;
 	date: number;
+	status: string;
 	team: string[];
 	quart: Quart[];
 }

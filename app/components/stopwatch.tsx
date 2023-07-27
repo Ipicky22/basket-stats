@@ -34,12 +34,15 @@ const Stopwatch = ({
 	};
 
 	return (
-		<View style={{ marginTop: 16 }}>
+		<View
+			style={{
+				flexDirection: "row",
+				marginBottom: 8,
+			}}>
 			<View
 				style={{
 					flexDirection: "row",
-					justifyContent: "center",
-					marginBottom: 16,
+					flex: 1,
 				}}>
 				<Text style={{ fontSize: 32 }}>
 					{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:
@@ -53,8 +56,10 @@ const Stopwatch = ({
 			</View>
 			<View
 				style={{
+					flex: 1,
 					flexDirection: "row",
 					justifyContent: "space-around",
+					alignItems: "center",
 				}}>
 				<Button onPress={onStop} title='Stop' />
 				<Button onPress={onStart} title='Start' />
