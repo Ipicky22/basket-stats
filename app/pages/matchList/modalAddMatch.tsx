@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button, View, Text, Modal, StyleSheet, TextInput } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import { globalStore } from "../../../store/globalStore";
 import uuid from "react-native-uuid";
+import Dropdown from "react-native-input-select";
+
 var moment = require("moment");
 
 const ModalAddMatch = () => {
@@ -12,10 +13,7 @@ const ModalAddMatch = () => {
 	const [nameMatch, setNameMatch] = useState("");
 
 	const [selectedType, setSelectedType] = useState("");
-	const [pickerTypeFocused, setPickerTypeFocused] = useState(false);
-
 	const [selectedPlace, setSelectedPlace] = useState("");
-	const [pickerPlaceFocused, setPickerPlaceFocused] = useState(false);
 
 	const createMatch = () => {
 		addMatch({
@@ -67,45 +65,67 @@ const ModalAddMatch = () => {
 				<View style={styles.centeredView}>
 					<View style={styles.modalView}>
 						<Text style={styles.modalText}>Ajouter un match</Text>
+
 						<TextInput
-							style={styles.input}
+							style={{
+								borderBottomWidth: 1,
+								paddingHorizontal: 5,
+								paddingVertical: 5,
+								fontSize: 15,
+								marginBottom: 16,
+							}}
 							onChangeText={setNameMatch}
 							value={nameMatch}
 							placeholder='Nom'
+							placeholderTextColor='black'
 						/>
-						<Picker
-							onFocus={() => setPickerTypeFocused(true)}
-							onBlur={() => setPickerTypeFocused(false)}
+
+						<Dropdown
+							placeholder='Type'
+							dropdownStyle={{
+								borderWidth: 0,
+								paddingVertical: 5,
+								paddingHorizontal: 5,
+								minHeight: 40,
+								borderRadius: 0,
+								borderBottomWidth: 1,
+								backgroundColor: "white",
+							}}
+							dropdownIconStyle={{ top: 15, right: 10 }}
+							options={[
+								{ label: "Competitif", value: "competitif" },
+								{ label: "Amical", value: "amical" },
+							]}
 							selectedValue={selectedType}
-							onValueChange={(itemValue) =>
-								setSelectedType(itemValue)
-							}>
-							<Picker.Item
-								label='Type'
-								value=''
-								enabled={!pickerTypeFocused}
-							/>
-							<Picker.Item
-								label='Competitif'
-								value='competitif'
-							/>
-							<Picker.Item label='Amical' value='amical' />
-						</Picker>
-						<Picker
-							onFocus={() => setPickerPlaceFocused(true)}
-							onBlur={() => setPickerPlaceFocused(false)}
+							onValueChange={(value: string) =>
+								setSelectedType(value)
+							}
+							primaryColor={"green"}
+						/>
+
+						<Dropdown
+							placeholder='Lieu'
+							dropdownStyle={{
+								borderWidth: 0,
+								paddingVertical: 5,
+								paddingHorizontal: 5,
+								minHeight: 40,
+								borderRadius: 0,
+								borderBottomWidth: 1,
+								backgroundColor: "white",
+							}}
+							dropdownIconStyle={{ top: 15, right: 10 }}
+							options={[
+								{ label: "Domicile", value: "DOM" },
+								{ label: "Exterieur", value: "EXT" },
+							]}
 							selectedValue={selectedPlace}
-							onValueChange={(itemValue) =>
-								setSelectedPlace(itemValue)
-							}>
-							<Picker.Item
-								label='Lieu'
-								value=''
-								enabled={!pickerPlaceFocused}
-							/>
-							<Picker.Item label='DOM' value='DOM' />
-							<Picker.Item label='EXT' value='EXT' />
-						</Picker>
+							onValueChange={(value: string) =>
+								setSelectedPlace(value)
+							}
+							primaryColor={"green"}
+						/>
+
 						<View style={styles.fixToText}>
 							<Button
 								title='Annuler'
@@ -141,15 +161,11 @@ const styles = StyleSheet.create({
 		shadowRadius: 4,
 		elevation: 5,
 	},
-	input: {
-		height: 40,
-		margin: 12,
-		borderWidth: 1,
-		padding: 10,
-	},
 	modalText: {
 		marginBottom: 15,
 		textAlign: "center",
+		fontWeight: "500",
+		fontSize: 18,
 	},
 	fixToText: {
 		flexDirection: "row",
